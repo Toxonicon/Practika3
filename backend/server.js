@@ -2,6 +2,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const adminApp = express();
+const cors = require('cors');
+
+// Разрешить запросы с вашего домена
+app.use(cors({
+  origin: 'http://127.0.0.1:5500' // или '*' для всех доменов
+}));
+
+// Или вручную добавьте заголовки
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 // Порт для интернет-магазина
 const SHOP_PORT = 3000;
@@ -13,11 +27,11 @@ app.use(bodyParser.json());
 
 // Товары
 let products = [
-    { id: 1, name: 'Товар 1', price: 100, description: 'Описание товара 1', categories: ['Категория 1'] },
-    { id: 2, name: 'Товар 2', price: 200, description: 'Описание товара 2', categories: ['Категория 2'] },
-    { id: 3, name: 'Товар 3', price: 150, description: 'Описание товара 3', categories: ['Категория 1'] },
-    { id: 4, name: 'Товар 4', price: 250, description: 'Описание товара 4', categories: ['Категория 2'] },
-    { id: 5, name: 'Товар 5', price: 300, description: 'Описание товара 5', categories: ['Категория 1', 'Категория 2'] }
+    { id: 1, name: 'Товар 1', price: 100, description: 'Описание товара 1 )', categories: ['Категория 1 :('] },
+    { id: 2, name: 'Товар 2', price: 200, description: 'Описание товара 2 :)', categories: ['Категория 2 :('] },
+    { id: 3, name: 'Товар 3', price: 300, description: 'Описание товара 3 :)', categories: ['Категория 1 :('] },
+    { id: 4, name: 'Товар 4', price: 400, description: 'Описание товара 4 :)', categories: ['Категория 2 :('] },
+    { id: 5, name: 'Товар 5', price: 500, description: 'Описание товара 5 :)', categories: ['Категория 1 :(', 'Категория 2 :('] }
 ];
 
 // Панель администратора
